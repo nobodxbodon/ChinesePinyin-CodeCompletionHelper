@@ -1,7 +1,7 @@
 package com.github.tuchg.nonasciicodecompletionhelper.model
 
 import com.github.tuchg.nonasciicodecompletionhelper.utils.countContainsSomeChar
-import com.github.tuchg.nonasciicodecompletionhelper.utils.toPinyin
+import com.github.tuchg.nonasciicodecompletionhelper.utils.五笔
 import com.intellij.codeInsight.completion.PlainPrefixMatcher
 import pansong291.simplepinyin.Pinyin
 
@@ -15,7 +15,7 @@ class ChinesePrefixMatcher(prefix: String) : PlainPrefixMatcher(prefix) {
     override fun prefixMatches(name: String): Boolean {
 
         return if (Pinyin.hasChinese(name)) {
-            for (s in toPinyin(name, Pinyin.LOW_CASE)) {
+            for (s in 五笔(name)) {
                 if (countContainsSomeChar(s, prefix) >= prefix.length) {
                     return true
                 }

@@ -3,7 +3,7 @@ package com.github.tuchg.nonasciicodecompletionhelper.extensions
 import com.github.tuchg.nonasciicodecompletionhelper.model.ChineseLookupElement
 import com.github.tuchg.nonasciicodecompletionhelper.model.ChinesePrefixMatcher
 import com.github.tuchg.nonasciicodecompletionhelper.utils.countContainsSomeChar
-import com.github.tuchg.nonasciicodecompletionhelper.utils.toPinyin
+import com.github.tuchg.nonasciicodecompletionhelper.utils.五笔
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.openapi.util.text.StringUtil
@@ -37,7 +37,7 @@ open class ChineseCompletionContributor() : CompletionContributor() {
             if (Pinyin.hasChinese(element.lookupString)) {
                 var flag = false
                 // 从多音字列表提取命中次数最多的一个
-                val closest = toPinyin(element.lookupString, Pinyin.FIRST_UP_CASE).let {
+                val closest = 五笔(element.lookupString).let {
                     if (it.size == 1) {
                         return@let if (countContainsSomeChar(it[0].toLowerCase(), prefix) >= prefix.length) {
                             flag = true

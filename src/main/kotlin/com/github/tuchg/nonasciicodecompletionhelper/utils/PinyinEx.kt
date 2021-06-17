@@ -16,6 +16,12 @@ class PinyinEx {
          */
         @JvmStatic
         val CARTESIAN_CACHE: MutableMap<String, Array<String>> = ContainerUtil.createSoftValueMap()
+
+        // 摘自此库：https://github.com/program-in-chinese/npm-wubi-code-data/blob/master/%E4%BA%94%E7%AC%94%E7%A0%81%E8%A1%A8%E6%95%B0%E6%8D%AE.js
+        @JvmStatic
+        val 五笔98=mapOf(
+                '问' to "ukd", '候' to "whnd", '打' to "rsh", '印' to "qgbh", '输' to "lwgj", '出' to "bmk"
+        )
     }
 }
 
@@ -44,6 +50,15 @@ fun toPinyin(str: String, caseType: Int): Array<String> {
     return result
 }
 
+fun 五笔(文本: String): Array<String> {
+    val 五笔码 = 文本
+            .map { 字 -> PinyinEx.五笔98.getOrDefault(字, 字) }
+            .joinToString(separator = "")
+    println("求五笔码: ${文本} -> ${五笔码}")
+    return arrayOf(五笔码)
+}
+
+
 /**
  * 计算字符串内包含需要的字符的数量
  * @param origin 文本串
@@ -68,6 +83,7 @@ fun countContainsSomeChar(origin: String, needed: String): Int {
         }
     }
     val size = counted.size
+    println("匹配字符数:${key} -> ${size}")
     PinyinEx.COUNT_CHAR_CACHE[key] = size
     return size
 }
